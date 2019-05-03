@@ -1,0 +1,160 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false,
+    "properties": {
+        "id": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "developer": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "icon": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "vendor_identifier": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "ref_no": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "sku": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "store_id": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "store": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "release_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "added_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "updated_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "version": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "type": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "devices": {
+            "type": [
+                "null",
+                "array"
+            ]
+        },
+        "parent_id": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "children": {
+            "type": [
+                "null",
+                "array"
+            ]
+        },
+        "features": {
+            "type": [
+                "null",
+                "array"
+            ]
+        },
+        "source": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additional_properties": null,
+            "properties": {
+                "external_account_id": {
+                    "type": [
+                        "null",
+                        "integer"
+                    ]
+                },
+                "added_timestamp": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "active": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "hidden": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        }
+    }
+}

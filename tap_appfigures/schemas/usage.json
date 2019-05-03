@@ -1,0 +1,100 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": {
+        "active_users": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "avg_optin_rate": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "daily_active_devices": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "daily_new_devices": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "median_session_length": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "monthly_active_devices": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "paying_users": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "screen_views": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "screen_views_per_user": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "session_duration": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "sessions_per_device": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "sessions_per_user": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "unique_screen_views": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        }
+    },
+    "properties": {
+        "crashes": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "sessions": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        }
+    }
+}

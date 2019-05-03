@@ -1,0 +1,81 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false,
+    "properties": {
+        "breakdown": {
+            "type": [
+                "null",
+                "array"
+            ]
+        },
+        "new": {
+            "type": [
+                "null",
+                "array"
+            ]
+        },
+        "average": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "total": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "new_average": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "new_total": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "positive": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "negative": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "neutral": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "new_positive": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "new_negative": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "new_neutral": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    }
+}

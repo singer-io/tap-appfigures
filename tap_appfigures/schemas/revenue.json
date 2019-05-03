@@ -1,0 +1,75 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false,
+    "properties": {
+        "sales": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "iaps": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "ads": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "edu": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "returns": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "total": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_sales": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_iaps": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_edu": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_returns": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_total": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false,
+    "properties": {
+        "country": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "category": {
+            "type": [
+                "null",
+                "object"
+            ]
+        },
+        "product_id": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "position": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "delta": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        }
+    }
+}

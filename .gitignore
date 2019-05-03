@@ -1,0 +1,7 @@
+config.json
+catalog.json
+state.json
+.env
+dist/
+*.egg-info/
+__pycache__

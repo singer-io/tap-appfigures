@@ -1,0 +1,105 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "additional_properties": false,
+    "properties": {
+        "downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "re_downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "net_downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "updates": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "returns": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "gifts": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "gift_redemptions": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "promos": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "edu_downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "returns_amount": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_returns_amount": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "edu_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_edu_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "uninstalls": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        }
+    }
+}
