@@ -1,7 +1,7 @@
 import singer
 
 from tap_appfigures.streams.base import AppFiguresBase
-from tap_appfigures.utils import str_to_date
+from tap_appfigures.utils import str_to_date, tidy_dates
 
 
 class ProductsStream(AppFiguresBase):
@@ -22,6 +22,8 @@ class ProductsStream(AppFiguresBase):
                 product_date = product['updated_date'] if product['updated_date']\
                     else product['added_date']
                 product_date = str_to_date(product_date)
+
+                product = tidy_dates(product)
 
                 if product_date > self.bookmark_date:
                     singer.write_message(singer.RecordMessage(

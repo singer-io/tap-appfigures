@@ -3,15 +3,9 @@ Misc. utilities
 """
 
 import copy
+import math
 
 from dateutil.parser import parse
-
-
-def date_to_str(value):
-    """
-    Convert data to standard string format
-    """
-    return value.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def str_to_date(value):
@@ -32,6 +26,12 @@ def strings_to_floats(row_dict):
         if isinstance(value, str):
             try:
                 result[key] = float(value)
+
+                # The Stitch target can't handle NaN, and needs a None (null) instead
+                if math.isnan(result[key]):
+                    result[key] = None
+
+            # Not all fields are numeric fields. Just ignore those
             except ValueError:
                 pass
 
@@ -43,3 +43,18 @@ class RequestError(Exception):
     Error class for raising an error when a
     request to the AppFigures API fails
     """
+
+
+def tidy_dates(row_dict):
+    """
+    Product rows contain dates in  2018-12-18T17:14:07 format
+    The Stitch target needs a Z at the end of the dates
+    i.e. 2018-12-18T17:14:07Z
+    """
+    result = copy.deepcopy(row_dict)
+    for key, value in result.items():
+        if isinstance(value, dict):
+            result[key] = tidy_dates(value)
+        elif (key.endswith('_date') or key.endswith('_timestamp')) and value:
+            result[key] = value + 'Z'
+    return result
