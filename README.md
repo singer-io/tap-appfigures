@@ -58,3 +58,7 @@ Do not create the file (typically) state.json yourself. The script will create i
 
 This project is licensed under the GNU AFFERO GENERAL PUBLIC License - see the [LICENSE.md](LICENSE.md) file for details
 MIT
+
+---
+
+Copyright &copy; 2019 Stitch
