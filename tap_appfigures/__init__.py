@@ -46,9 +46,7 @@ def parse_args(required_config_keys):
 
     parser.add_argument(
         '-s', '--state',
-        help='State file',
-        required=True,
-    )
+        help='State file')
 
     parser.add_argument(
         '--catalog',
