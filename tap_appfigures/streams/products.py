@@ -35,6 +35,6 @@ class ProductsStream(AppFiguresBase):
 
                 counter.increment()
 
-        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'updated_date', date_to_str(max_product_date))
+        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', date_to_str(max_product_date))
 
         self.product_ids = product_ids

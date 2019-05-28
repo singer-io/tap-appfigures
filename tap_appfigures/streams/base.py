@@ -109,7 +109,7 @@ class AppFiguresBase:
                 ))
             counter.increment()
 
-        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'updated_date', new_bookmark_date)
+        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
 
     def get_class_path(self):
         """

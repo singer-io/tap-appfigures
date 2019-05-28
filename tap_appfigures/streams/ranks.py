@@ -49,7 +49,7 @@ class RanksStream(AppFiguresBase):
                         counter.increment()
 
             self.state = singer.write_bookmark(
-                self.state, self.STREAM_NAME, 'updated_date', date_to_str(new_bookmark_date)
+                self.state, self.STREAM_NAME, 'last_record', date_to_str(new_bookmark_date)
             )
 
             start_date = end_date
