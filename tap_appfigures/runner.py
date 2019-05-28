@@ -61,11 +61,16 @@ class AppFiguresRunner:
 
         # We need the list of product ids for the rankings report
         # so sync the products first
+        product_ids = []
         for stream in self.streams:
             if stream.STREAM_NAME == 'products':
                 self.sync_stream(stream)
+                product_ids = stream.product_ids
 
         # Sync all but the products
         for stream in self.streams:
-            if stream.STREAM_NAME != 'products':
-                self.sync_stream(stream)
+            if stream.STREAM_NAME == 'products':
+                continue
+
+            stream.product_ids = product_ids
+            self.sync_stream(stream)

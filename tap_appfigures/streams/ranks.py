@@ -3,7 +3,7 @@ from datetime import date, timedelta
 import singer
 
 from tap_appfigures.streams.base import AppFiguresBase
-from tap_appfigures.utils import str_to_date, strings_to_floats
+from tap_appfigures.utils import str_to_date, date_to_str, strings_to_floats
 
 
 class RanksStream(AppFiguresBase):
@@ -11,9 +11,9 @@ class RanksStream(AppFiguresBase):
     KEY_PROPERTIES = ['product_id', 'country', 'category', 'date']
 
     def do_sync(self):
-        start_date = self.bookmark_date
-        new_bookmark_date = self.bookmark_date
-        product_ids = ';'.join(str(id) for id in self.state.product_ids)
+        start_date = str_to_date(self.bookmark_date)
+        new_bookmark_date = start_date
+        product_ids = ';'.join(str(id) for id in self.product_ids)
 
         while start_date.date() <= date.today():
             end_date = start_date + timedelta(days=28)
@@ -48,6 +48,8 @@ class RanksStream(AppFiguresBase):
                         ))
                         counter.increment()
 
-            self.state.set_bookmark_for_stream(self.STREAM_NAME, 'report_date', new_bookmark_date)
+            self.state = singer.write_bookmark(
+                self.state, self.STREAM_NAME, 'updated_date', date_to_str(new_bookmark_date)
+            )
 
             start_date = end_date

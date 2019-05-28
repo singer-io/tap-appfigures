@@ -1,7 +1,7 @@
 import singer
 
 from tap_appfigures.streams.base import AppFiguresBase
-from tap_appfigures.utils import str_to_date, tidy_dates
+from tap_appfigures.utils import str_to_date, date_to_str, tidy_dates
 
 
 class ProductsStream(AppFiguresBase):
@@ -9,7 +9,8 @@ class ProductsStream(AppFiguresBase):
     KEY_PROPERTIES = ['id']
 
     def do_sync(self):
-        max_product_date = self.bookmark_date
+        bookmark_date_as_date = str_to_date(self.bookmark_date)
+        max_product_date = bookmark_date_as_date
 
         product_response = self.client.make_request("/products/mine")
         product_ids = []
@@ -25,7 +26,7 @@ class ProductsStream(AppFiguresBase):
 
                 product = tidy_dates(product)
 
-                if product_date > self.bookmark_date:
+                if product_date > bookmark_date_as_date:
                     singer.write_message(singer.RecordMessage(
                         stream='products',
                         record=product,
@@ -34,6 +35,6 @@ class ProductsStream(AppFiguresBase):
 
                 counter.increment()
 
-        self.state.set_bookmark_for_stream(self.STREAM_NAME, 'product_date', max_product_date)
+        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'updated_date', date_to_str(max_product_date))
 
-        self.state.product_ids = product_ids
+        self.product_ids = product_ids

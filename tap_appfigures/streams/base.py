@@ -48,9 +48,15 @@ class AppFiguresBase:
 
         self.client = client
         self.state = state
-        self.bookmark_date = self.state.bookmark_for_stream(self.STREAM_NAME)
+        self.bookmark_date = singer.bookmarks.get_bookmark(
+            state=state,
+            tap_stream_id=self.STREAM_NAME,
+            key='last_record'
+        )
         if not self.bookmark_date:
             self.bookmark_date = client.start_date
+
+        self.product_ids = []
 
     def sync(self):
         """
@@ -60,7 +66,7 @@ class AppFiguresBase:
         """
         singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
         self.do_sync()
-        self.state.save()
+        singer.write_state(self.state)
 
     @staticmethod
     def traverse_nested_dicts(dict_, levels):
@@ -84,7 +90,7 @@ class AppFiguresBase:
         Most of the streams use this
         A few of the streams work differently and override this method
         """
-        start_date = self.bookmark_date.strftime('%Y-%m-%d')
+        start_date = str_to_date(self.bookmark_date).strftime('%Y-%m-%d')
 
         try:
             response = self.client.make_request(self.URI.format(start_date))
@@ -95,8 +101,7 @@ class AppFiguresBase:
 
         with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
             for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
-                report_date = str_to_date(entry['date'])
-                new_bookmark_date = max(new_bookmark_date, report_date)
+                new_bookmark_date = max(new_bookmark_date, entry['date'])
                 entry = strings_to_floats(entry)
                 singer.write_message(singer.RecordMessage(
                     stream=self.STREAM_NAME,
@@ -104,7 +109,7 @@ class AppFiguresBase:
                 ))
             counter.increment()
 
-        self.state.set_bookmark_for_stream(self.STREAM_NAME, 'report_date', new_bookmark_date)
+        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'updated_date', new_bookmark_date)
 
     def get_class_path(self):
         """

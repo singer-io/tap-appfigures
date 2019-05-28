@@ -45,9 +45,7 @@ pip install git+https://github.com/MeowWolf/tap-appfigures
 ### Running the tap
 ```~/.virtualenvs/tap-appfigures/bin/tap-appfigures --config config.json --state state.json```
 
-The --state is a required parameter. 
-
-Do not create the file (typically) state.json yourself. The script will create it on the first run, to record the end state of the import process.
+The --state is an optional parameter. 
 
 ## Authors
 
