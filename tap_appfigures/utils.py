@@ -10,9 +10,16 @@ from dateutil.parser import parse
 
 def str_to_date(value):
     """
-    Convert string to date
+    Convert (json) string to date
     """
     return parse(value)
+
+
+def date_to_str(value):
+    """
+    Convert date to (json) string
+    """
+    return value.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def strings_to_floats(row_dict):

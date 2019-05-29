@@ -5,7 +5,6 @@ The AppFigures API client
 import sys
 
 import requests
-from dateutil.parser import parse
 
 import singer
 
@@ -25,7 +24,7 @@ class AppFiguresClient:
         self.api_key = config.get('api_key')
         self.password = config.get('password')
         self.username = config.get('username')
-        self.start_date = parse(config.get('start_date'))
+        self.start_date = config.get('start_date')
 
     def make_request(self, uri):
         """
@@ -49,4 +48,5 @@ class AppFiguresClient:
             LOGGER.critical('Daily rate limit reached, after request for {}'.format(uri))
             sys.exit(1)
 
+        response.raise_for_status()
         return response
