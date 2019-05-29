@@ -48,4 +48,5 @@ class AppFiguresClient:
             LOGGER.critical('Daily rate limit reached, after request for {}'.format(uri))
             sys.exit(1)
 
+        response.raise_for_status()
         return response
