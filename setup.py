@@ -11,6 +11,8 @@ setup(name='tap-appfigures',
       install_requires=[
           'singer-python',
           'requests',
+          'python-dateutil',
+          'pytz',
       ],
       entry_points='''
           [console_scripts]
