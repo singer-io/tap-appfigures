@@ -2,8 +2,8 @@ from datetime import date, timedelta
 
 import singer
 
-from tap_appfigures.streams.base import AppFiguresBase
-from tap_appfigures.utils import str_to_date, date_to_str, strings_to_floats
+from tap_appfigures.streams.base import AppFiguresBase, Record
+from tap_appfigures.utils import date_to_str
 
 
 class RanksStream(AppFiguresBase):
@@ -11,8 +11,8 @@ class RanksStream(AppFiguresBase):
     KEY_PROPERTIES = ['product_id', 'country', 'category', 'date']
 
     def do_sync(self):
-        start_date = str_to_date(self.bookmark_date)
-        new_bookmark_date = start_date
+        start_date = self.bookmark_date
+        new_bookmark_date = self.bookmark_date
         product_ids = ';'.join(str(id) for id in self.product_ids)
 
         while start_date.date() <= date.today():
@@ -31,20 +31,19 @@ class RanksStream(AppFiguresBase):
             with singer.metrics.Counter('record_count', {'endpoint': 'ranks'}) as counter:
                 for rank_entry in rank_data:
                     for i, rank_date in enumerate(rank_dates):
-                        record_data = dict(
+                        record = Record(dict(
                             country=rank_entry['country'],
                             category=rank_entry['category'],
                             product_id=rank_entry['product_id'],
                             position=rank_entry['positions'][i],
                             delta=rank_entry['deltas'][i],
                             date=rank_date,
-                        )
+                        ))
 
-                        new_bookmark_date = max(new_bookmark_date, str_to_date(record_data['date']))
-                        record_data = strings_to_floats(record_data)
+                        new_bookmark_date = max(new_bookmark_date, record.bookmark)
                         singer.write_message(singer.RecordMessage(
                             stream=self.STREAM_NAME,
-                            record=record_data,
+                            record=record.for_export,
                         ))
                         counter.increment()
 

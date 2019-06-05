@@ -4,22 +4,28 @@ Misc. utilities
 
 import copy
 import math
+from datetime import datetime
 
 from dateutil.parser import parse
+from pytz import timezone
 
 
 def str_to_date(value):
     """
     Convert (json) string to date
     """
-    return parse(value)
+    result = parse(value)
+    if result.tzinfo is None:
+        # All dates (so far) are EST, but this is not part of the data returned by the API
+        result = timezone('EST').localize(result)
+    return result
 
 
 def date_to_str(value):
     """
     Convert date to (json) string
     """
-    return value.strftime("%Y-%m-%d %H:%M:%S")
+    return value.strftime("%Y-%m-%d %H:%M:%S%z")
 
 
 def strings_to_floats(row_dict):
@@ -52,16 +58,14 @@ class RequestError(Exception):
     """
 
 
-def tidy_dates(row_dict):
+def dates_to_str(row_dict):
     """
-    Product rows contain dates in  2018-12-18T17:14:07 format
-    The Stitch target needs a Z at the end of the dates
-    i.e. 2018-12-18T17:14:07Z
+    Convert all dates to strings - recursively
     """
     result = copy.deepcopy(row_dict)
     for key, value in result.items():
         if isinstance(value, dict):
-            result[key] = tidy_dates(value)
-        elif (key.endswith('_date') or key.endswith('_timestamp')) and value:
-            result[key] = value + 'Z'
+            result[key] = dates_to_str(value)
+        elif isinstance(value, datetime):
+            result[key] = date_to_str(value)
     return result

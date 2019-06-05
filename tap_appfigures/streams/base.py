@@ -3,10 +3,11 @@ Stream base class
 """
 import inspect
 import os
+from copy import deepcopy
 
 import singer
 
-from tap_appfigures.utils import str_to_date, strings_to_floats, RequestError
+from tap_appfigures.utils import str_to_date, strings_to_floats, RequestError, dates_to_str, date_to_str
 
 
 def stream_details_from_catalog(catalog, stream_name):
@@ -19,6 +20,29 @@ def stream_details_from_catalog(catalog, stream_name):
     return None
 
 
+class Record:
+    """
+    Stores one input-record, and returns in a few different formats
+    """
+    DATE_FIELDS = ['date']
+
+    def __init__(self, raw_data):
+        self.raw_data = raw_data
+        self.clean_data = self.create_clean_data(raw_data)
+        self.for_export = dates_to_str(self.clean_data)
+
+    def create_clean_data(self, raw_data):
+        clean_data = deepcopy(raw_data)
+        clean_data = strings_to_floats(clean_data)
+        for date_field in self.DATE_FIELDS:
+            clean_data[date_field] = str_to_date(clean_data[date_field])
+        return clean_data
+
+    @property
+    def bookmark(self):
+        return self.clean_data['date']
+
+
 class AppFiguresBase:
     """
     Stream base class
@@ -28,6 +52,7 @@ class AppFiguresBase:
     URI = ''
     KEY_PROPERTIES = []
     RESPONSE_LEVELS = 2
+    RECORD_CLASS = Record
 
     def __init__(self, client, state, catalog):
         self.schema = None
@@ -48,13 +73,15 @@ class AppFiguresBase:
 
         self.client = client
         self.state = state
-        self.bookmark_date = singer.bookmarks.get_bookmark(
+        bookmark_date = singer.bookmarks.get_bookmark(
             state=state,
             tap_stream_id=self.STREAM_NAME,
             key='last_record'
         )
-        if not self.bookmark_date:
-            self.bookmark_date = client.start_date
+        if not bookmark_date:
+            bookmark_date = client.start_date
+
+        self.bookmark_date = str_to_date(bookmark_date)
 
         self.product_ids = []
 
@@ -90,10 +117,8 @@ class AppFiguresBase:
         Most of the streams use this
         A few of the streams work differently and override this method
         """
-        start_date = str_to_date(self.bookmark_date).strftime('%Y-%m-%d')
-
         try:
-            response = self.client.make_request(self.URI.format(start_date))
+            response = self.client.make_request(self.URI.format(self.bookmark_date.strftime('%Y-%m-%d')))
         except RequestError:
             return
 
@@ -101,15 +126,15 @@ class AppFiguresBase:
 
         with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
             for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
-                new_bookmark_date = max(new_bookmark_date, entry['date'])
-                entry = strings_to_floats(entry)
+                record = self.RECORD_CLASS(entry)
+                new_bookmark_date = max(new_bookmark_date, record.bookmark)
                 singer.write_message(singer.RecordMessage(
                     stream=self.STREAM_NAME,
-                    record=entry,
+                    record=record.for_export,
                 ))
             counter.increment()
 
-        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
+        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', date_to_str(new_bookmark_date))
 
     def get_class_path(self):
         """
