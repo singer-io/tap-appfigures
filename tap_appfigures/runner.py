@@ -28,10 +28,8 @@ class AppFiguresRunner:
         """
         LOGGER.info("Starting discovery.")
 
-        catalog = [
-            stream.generate_catalog()
-            for stream in self.streams
-        ]
+        catalog = [stream.generate_catalog() for stream in self.streams]
+
 
         json.dump({'streams': catalog}, sys.stdout, indent=4)
 
