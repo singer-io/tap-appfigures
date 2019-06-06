@@ -3,8 +3,15 @@
         "null",
         "object"
     ],
-    "additional_properties": false,
+    "additionalProperties": false,
     "properties": {
+        "date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format" : "date-time"
+        },
         "country": {
             "type": [
                 "null",
