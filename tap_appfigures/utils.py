@@ -14,6 +14,8 @@ def str_to_date(value):
     """
     Convert (json) string to date
     """
+
+    # This might be upsetting because there is no T ie: '2019-03-31' -> '2019-03-31 00:00:00-0500'
     result = parse(value)
     if result.tzinfo is None:
         # All dates (so far) are EST, but this is not part of the data returned by the API

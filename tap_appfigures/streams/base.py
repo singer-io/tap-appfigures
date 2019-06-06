@@ -60,7 +60,7 @@ class AppFiguresBase:
         if catalog:
             stream_details = stream_details_from_catalog(catalog, self.STREAM_NAME)
             if stream_details:
-                self.schema = stream_details.schema.to_dict()['properties']
+                self.schema = stream_details.schema.to_dict()
                 self.key_properties = stream_details.key_properties
 
         if not self.schema:
@@ -128,10 +128,7 @@ class AppFiguresBase:
             for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
                 record = self.RECORD_CLASS(entry)
                 new_bookmark_date = max(new_bookmark_date, record.bookmark)
-                singer.write_message(singer.RecordMessage(
-                    stream=self.STREAM_NAME,
-                    record=record.for_export,
-                ))
+                singer.write_record(self.STREAM_NAME, record.for_export)
             counter.increment()
 
         self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', date_to_str(new_bookmark_date))
@@ -151,9 +148,9 @@ class AppFiguresBase:
             stream=self.STREAM_NAME,
             key_properties=self.key_properties,
             schema=self.schema,
-            metadata={
-                'selected': True,
-                'schema-name': self.STREAM_NAME,
-                'is_view': False,
-            }
+            # metadata={
+            #     'selected': True,
+            #     'schema-name': self.STREAM_NAME,
+            #     'is_view': False,
+            # }
         )

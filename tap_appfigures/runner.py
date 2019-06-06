@@ -28,10 +28,8 @@ class AppFiguresRunner:
         """
         LOGGER.info("Starting discovery.")
 
-        catalog = [
-            stream.generate_catalog()
-            for stream in self.streams
-        ]
+        catalog = [stream.generate_catalog() for stream in self.streams]
+
 
         json.dump({'streams': catalog}, sys.stdout, indent=4)
 
@@ -70,6 +68,11 @@ class AppFiguresRunner:
         # Sync all but the products
         for stream in self.streams:
             if stream.STREAM_NAME == 'products':
+                continue
+            # This resource requires Partner API Access. Reason: This
+            # Account type must use the PartnerAPI for this route for url:
+            # https://api.appfigures.com/v2/reports/ratings?group_by=products,dates&start_date=2018-05-16&granularity=daily
+            if stream.STREAM_NAME == 'ratings' or stream.STREAM_NAME == 'ranks':
                 continue
 
             stream.product_ids = product_ids

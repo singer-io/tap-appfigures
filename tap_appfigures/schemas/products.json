@@ -3,7 +3,7 @@
         "null",
         "object"
     ],
-    "additional_properties": false,
+    "additionalProperties": true,
     "properties": {
         "id": {
             "type": [
@@ -121,7 +121,7 @@
                 "null",
                 "object"
             ],
-            "additional_properties": null,
+            "additionalProperties": false,
             "properties": {
                 "external_account_id": {
                     "type": [
