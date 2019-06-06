@@ -12,7 +12,7 @@ setup(name='tap-appfigures',
           'singer-python==5.5.1',
           'requests==2.20.1',
           'python-dateutil',
-          'pytz',
+          'pytz==2018.4',
       ],
       entry_points='''
           [console_scripts]
