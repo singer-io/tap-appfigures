@@ -69,6 +69,11 @@ class AppFiguresRunner:
         for stream in self.streams:
             if stream.STREAM_NAME == 'products':
                 continue
+            # This resource requires Partner API Access. Reason: This
+            # Account type must use the PartnerAPI for this route for url:
+            # https://api.appfigures.com/v2/reports/ratings?group_by=products,dates&start_date=2018-05-16&granularity=daily
+            if stream.STREAM_NAME == 'ratings' or stream.STREAM_NAME == 'ranks':
+                continue
 
             stream.product_ids = product_ids
             self.sync_stream(stream)
