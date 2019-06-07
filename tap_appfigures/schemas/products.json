@@ -32,7 +32,7 @@
         "vendor_identifier": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "ref_no": {
@@ -133,8 +133,7 @@
                     "type": [
                         "null",
                         "string"
-                    ],
-                    "format": "date-time"
+                    ]
                 },
                 "active": {
                     "type": [
