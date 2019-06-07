@@ -32,7 +32,8 @@
         "vendor_identifier": {
             "type": [
                 "null",
-                "number"
+                "number",
+                "string"
             ]
         },
         "ref_no": {
