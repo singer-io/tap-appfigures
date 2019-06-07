@@ -8,6 +8,7 @@ from datetime import datetime
 
 from dateutil.parser import parse
 from pytz import timezone
+from singer.utils import strftime, strptime_to_utc
 
 
 def str_to_date(value):
@@ -15,8 +16,7 @@ def str_to_date(value):
     Convert (json) string to date
     """
 
-    # This might be upsetting because there is no T ie: '2019-03-31' -> '2019-03-31 00:00:00-0500'
-    result = parse(value)
+    result = strptime_to_utc(value)
     if result.tzinfo is None:
         # All dates (so far) are EST, but this is not part of the data returned by the API
         result = timezone('EST').localize(result)
@@ -27,7 +27,7 @@ def date_to_str(value):
     """
     Convert date to (json) string
     """
-    return value.strftime("%Y-%m-%d %H:%M:%S%z")
+    return strftime(value)
 
 
 def strings_to_floats(row_dict):

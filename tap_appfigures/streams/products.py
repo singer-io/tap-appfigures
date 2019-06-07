@@ -32,7 +32,7 @@ class ProductsStream(AppFiguresBase):
                 if record.product_date > self.bookmark_date:
                     singer.write_message(singer.RecordMessage(
                         stream='products',
-                        record=product,
+                        record=record.for_export,
                     ))
                     max_product_date = max(max_product_date, record.product_date)
 
