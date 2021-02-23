@@ -100,6 +100,42 @@
                 "null",
                 "integer"
             ]
+        },
+        "business_downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "business_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_business_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "standard_downloads": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "standard_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "gross_standard_revenue": {
+            "type": [
+                "null",
+                "number"
+            ]
         }
     }
 }
