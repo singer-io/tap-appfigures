@@ -3,5 +3,6 @@ catalog.json
 state.json
 .env
 dist/
+.idea/
 *.egg-info/
 __pycache__
