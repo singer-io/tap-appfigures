@@ -31,7 +31,7 @@ class AppFiguresBase:
 
     def __init__(self, client, state, catalog):
         self.schema = None
-
+        print(catalog)
         if catalog:
             stream_details = stream_details_from_catalog(catalog, self.STREAM_NAME)
             if stream_details:
