@@ -38,7 +38,7 @@
         "ref_no": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "sku": {
