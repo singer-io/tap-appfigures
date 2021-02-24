@@ -1,141 +1,138 @@
 {
-    "type": [
+  "type": [
+    "null",
+    "object"
+  ],
+  "additional_properties": false,
+  "properties": {
+    "product_id": {
+      "type": [
         "null",
         "object"
-    ],
-    "additional_properties": false,
-    "properties": {
-        "downloads": {
-            "type": [
+      ],
+      "additional_properties": false,
+      "properties": {
+        "date": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additional_properties": false,
+          "properties": {
+            "downloads": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "re_downloads": {
-            "type": [
+              ]
+            },
+            "re_downloads": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "net_downloads": {
-            "type": [
+              ]
+            },
+            "updates": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "updates": {
-            "type": [
+              ]
+            },
+            "returns": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "revenue": {
-            "type": [
+              ]
+            },
+            "net_downloads": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "promos": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "revenue": {
+              "type": [
                 "null",
                 "number"
-            ]
-        },
-        "gross_revenue": {
-            "type": [
+              ]
+            },
+            "gross_revenue": {
+              "type": [
                 "null",
                 "number"
-            ]
-        },
-        "returns": {
-            "type": [
+              ]
+            },
+            "returns_amount": {
+              "type": [
+                "null",
+                "number"
+              ]
+            },
+            "edu_downloads": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "gifts": {
-            "type": [
+              ]
+            },
+            "gifts": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "gift_redemptions": {
-            "type": [
+              ]
+            },
+            "gift_redemptions": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "promos": {
-            "type": [
+              ]
+            },
+            "edu_revenue": {
+              "type": [
+                "null",
+                "number"
+              ]
+            },
+            "gross_returns_amount": {
+              "type": [
+                "null",
+                "number"
+              ]
+            },
+            "gross_edu_revenue": {
+              "type": [
+                "null",
+                "number"
+              ]
+            },
+            "uninstalls": {
+              "type": [
                 "null",
                 "integer"
-            ]
-        },
-        "edu_downloads": {
-            "type": [
+              ]
+            },
+            "date": {
+              "type": [
                 "null",
-                "integer"
-            ]
-        },
-        "returns_amount": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "gross_returns_amount": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "edu_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "gross_edu_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "uninstalls": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "business_downloads": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "business_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "gross_business_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "standard_downloads": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "standard_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "gross_standard_revenue": {
-            "type": [
-                "null",
-                "number"
-            ]
+                "string"
+              ],
+              "format": "date-time"
+            }
+          }
         }
+      }
     }
+  }
 }
+
+
+
+
+
+
+
+
