@@ -35,11 +35,14 @@ class AppFiguresClient:
         headers = {"X-Client-Key": self.api_key}
         auth = (self.username, self.password)
         try:
+            print(self.BASE_URI + uri.lstrip("/"))
+            """
             response = requests.get(
                 self.BASE_URI + uri.lstrip("/"),
                 auth=auth,
                 headers=headers
             )
+            """
         except Exception as e:
             LOGGER.error('Error [{}], request {} failed'.format(e, uri))
             raise RequestError
