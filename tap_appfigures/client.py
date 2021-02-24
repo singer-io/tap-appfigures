@@ -10,7 +10,6 @@ import singer
 
 from tap_appfigures.utils import RequestError
 
-
 LOGGER = singer.get_logger()
 
 

@@ -22,7 +22,7 @@ class RanksStream(AppFiguresBase):
                 start_date.strftime('%Y-%m-%d'),
                 end_date.strftime('%Y-%m-%d')
             )
-
+            """
             data = self.client.make_request(uri).json()
 
             rank_dates = data['dates']
@@ -47,7 +47,7 @@ class RanksStream(AppFiguresBase):
                             record=record_data,
                         ))
                         counter.increment()
-
+            """
             self.state = singer.write_bookmark(
                 self.state, self.STREAM_NAME, 'last_record', date_to_str(new_bookmark_date)
             )
