@@ -28,12 +28,15 @@ class AppFiguresBase:
     URI = ''
     KEY_PROPERTIES = []
     RESPONSE_LEVELS = 2
+    ENABLED = True
 
     def __init__(self, client, state, catalog):
         self.schema = None
         if catalog:
             stream_details = stream_details_from_catalog(catalog, self.STREAM_NAME)
             if stream_details:
+                if not stream_details.metadata['selected']:
+                    self.ENABLED = False
                 self.schema = stream_details.schema.to_dict()['properties']
                 self.key_properties = stream_details.key_properties
 
@@ -63,9 +66,10 @@ class AppFiguresBase:
         These steps are the same for all streams
         Differences between streams are implemented by overriding .do_sync() method
         """
-        singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
-        self.do_sync()
-        singer.write_state(self.state)
+        if self.ENABLED:
+            singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
+            self.do_sync()
+            singer.write_state(self.state)
 
     @staticmethod
     def traverse_nested_dicts(dict_, levels):
