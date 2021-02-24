@@ -14,7 +14,7 @@ class ProductsStream(AppFiguresBase):
 
         product_response = self.client.make_request("/products/mine")
         product_ids = []
-        """
+
         with singer.metrics.Counter('record_count', {'endpoint': 'products'}) as counter:
 
             for product in product_response.json().values():
@@ -35,7 +35,7 @@ class ProductsStream(AppFiguresBase):
                 max_product_date = max(max_product_date, product_date)
 
                 counter.increment()
-        """
+
         self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', date_to_str(max_product_date))
 
         self.product_ids = product_ids

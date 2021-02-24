@@ -34,24 +34,17 @@ class AppFiguresClient:
         headers = {"X-Client-Key": self.api_key}
         auth = (self.username, self.password)
         try:
-            print(self.BASE_URI + uri.lstrip("/"))
-            """
             response = requests.get(
                 self.BASE_URI + uri.lstrip("/"),
                 auth=auth,
                 headers=headers
             )
-            """
         except Exception as e:
             LOGGER.error('Error [{}], request {} failed'.format(e, uri))
             raise RequestError
-        """
         if response.status_code == 420:
             LOGGER.critical('Daily rate limit reached, after request for {}'.format(uri))
             sys.exit(1)
-        
-        
+
         response.raise_for_status()
         return response
-        """
-        return None

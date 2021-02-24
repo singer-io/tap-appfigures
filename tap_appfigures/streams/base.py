@@ -101,7 +101,6 @@ class AppFiguresBase:
             return
 
         new_bookmark_date = self.bookmark_date
-        """
         with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
             for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
                 new_bookmark_date = max(new_bookmark_date, entry['date'])
@@ -113,7 +112,7 @@ class AppFiguresBase:
             counter.increment()
 
         self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
-        """
+
     def get_class_path(self):
         """
         The absolute path of the source file for this class
