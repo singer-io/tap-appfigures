@@ -5,4 +5,5 @@ state.json
 dist/
 .idea/
 *.egg-info/
+build/
 __pycache__
