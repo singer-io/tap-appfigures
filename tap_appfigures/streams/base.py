@@ -37,7 +37,7 @@ class AppFiguresBase:
             if stream_details:
                 if not stream_details.metadata['selected']:
                     self.ENABLED = False
-                self.schema = stream_details.schema.to_dict()['properties']
+                self.schema = stream_details.schema.to_dict()
                 self.key_properties = stream_details.key_properties
 
         if not self.schema:
