@@ -5,6 +5,7 @@ import inspect
 import os
 
 import singer
+import flatten_dict
 
 from tap_appfigures.utils import str_to_date, strings_to_floats, RequestError
 

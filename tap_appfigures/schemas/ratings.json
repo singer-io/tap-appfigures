@@ -83,6 +83,12 @@
                 "integer"
             ]
         },
+        "iso": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
         "country": {
             "type": [
                 "null",
