@@ -40,8 +40,9 @@ class RatingsStream(AppFiguresBase):
                     entry = strings_to_floats(entry)
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
-                    print("schema keys: ", schema_keys)
-                    print("entry keys: ", entry_keys)
+                    for entry_item in entry_keys:
+                        for schema_item in schema_keys:
+                            print(entry_item, schema_item)
 
                     singer.write_message(singer.RecordMessage(
                         stream=self.STREAM_NAME,
