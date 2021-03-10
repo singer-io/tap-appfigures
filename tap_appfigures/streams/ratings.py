@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from tap_appfigures.streams.base import AppFiguresBase
 import inspect
 import os
@@ -36,8 +38,8 @@ class RatingsStream(AppFiguresBase):
                 for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
                     new_bookmark_date = max(new_bookmark_date, entry['date'])
                     entry = strings_to_floats(entry)
-                    schema_keys = set(self.schema['properties'].keys()) - set(entry.keys())
-                    entry_keys = set(entry.keys()) - set(self.schema['properties'].keys())
+                    schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
+                    entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
                     print("schema keys: ", schema_keys)
                     print("entry keys: ", entry_keys)
 
