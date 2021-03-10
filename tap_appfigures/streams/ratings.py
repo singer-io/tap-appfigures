@@ -36,7 +36,7 @@ class RatingsStream(AppFiguresBase):
                 for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
                     new_bookmark_date = max(new_bookmark_date, entry['date'])
                     entry = strings_to_floats(entry)
-                    print("schema keys: ", self.schema.keys())
+                    print("schema keys: ", self.schema['properties'].keys())
                     print("entry keys: ", entry.keys())
                     singer.write_message(singer.RecordMessage(
                         stream=self.STREAM_NAME,
