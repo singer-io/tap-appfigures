@@ -40,15 +40,17 @@ class RatingsStream(AppFiguresBase):
                     entry = strings_to_floats(entry)
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
+                    print("entry_keys: ", entry_keys)
+                    print("schema_keys: ", schema_keys)
                     for i, entry_item in enumerate(entry_keys):
                     #for entry_item in entry[entry_keys]:
                         for j, schema_item in enumerate(schema_keys):
                             print("foo: ", i, entry[entry_item], j, schema_item)
 
-                    singer.write_message(singer.RecordMessage(
-                        stream=self.STREAM_NAME,
-                        record=entry,
-                    ))
+                    # singer.write_message(singer.RecordMessage(
+                    #     stream=self.STREAM_NAME,
+                    #     record=entry,
+                    # ))
                 counter.increment()
 
             self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
