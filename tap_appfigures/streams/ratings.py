@@ -43,7 +43,7 @@ class RatingsStream(AppFiguresBase):
                     for i, entry_item in enumerate(entry_keys):
                     #for entry_item in entry[entry_keys]:
                         for j, schema_item in enumerate(schema_keys):
-                            print(i, entry[entry_item], j, schema_item)
+                            print("foo: ", i, entry[entry_item], j, schema_item)
 
                     singer.write_message(singer.RecordMessage(
                         stream=self.STREAM_NAME,
