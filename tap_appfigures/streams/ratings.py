@@ -42,7 +42,7 @@ class RatingsStream(AppFiguresBase):
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
                     if schema_keys and entry_keys:
-                        print(entry_keys)
+                        print([entry[entry_item] for entry_item in entry_keys])
                         #entries = list(itertools.chain.from_iterable())
                         for i, entry_item in enumerate(entry_keys):
                             print("i, entry_item: ", i, entry_item)
