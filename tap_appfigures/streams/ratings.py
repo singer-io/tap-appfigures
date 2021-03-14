@@ -3,6 +3,7 @@ from collections import OrderedDict
 from tap_appfigures.streams.base import AppFiguresBase
 import inspect
 import os
+import itertools
 
 import singer
 import datetime
@@ -40,11 +41,14 @@ class RatingsStream(AppFiguresBase):
                     entry = strings_to_floats(entry)
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
-                    for i, entry_item in enumerate(entry_keys):
-                        print("i, entry_item: ", i, entry_item)
-                    #for entry_item in entry[entry_keys]:
-                    for j, schema_item in enumerate(schema_keys):
-                        print("j, schema_item: ", j, schema_item)
+                    if schema_keys and entry_keys:
+                        print(entry_keys)
+                        #entries = list(itertools.chain.from_iterable())
+                        for i, entry_item in enumerate(entry_keys):
+                            print("i, entry_item: ", i, entry_item)
+                        #for entry_item in entry[entry_keys]:
+                        for j, schema_item in enumerate(schema_keys):
+                            print("j, schema_item: ", j, schema_item)
 
                     # singer.write_message(singer.RecordMessage(
                     #     stream=self.STREAM_NAME,
