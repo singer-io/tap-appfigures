@@ -40,6 +40,8 @@ class RatingsStream(AppFiguresBase):
                     entry = strings_to_floats(entry)
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
+                    print("entry: ", entry)
+                    print("schema: ", schema)
                     print("entry_keys: ", entry_keys)
                     print("schema_keys: ", schema_keys)
                     for i, entry_item in enumerate(entry_keys):
