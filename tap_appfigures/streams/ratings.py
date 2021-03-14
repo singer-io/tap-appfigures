@@ -37,9 +37,8 @@ class RatingsStream(AppFiguresBase):
             new_bookmark_date = self.bookmark_date
             with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
                 for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
-                    entry_copy = entry.copy()
                     new_bookmark_date = max(new_bookmark_date, entry['date'])
-                    entry = strings_to_floats(entry)
+
                     schema_keys = [x for x in self.schema['properties'].keys() if x not in entry.keys()]
                     entry_keys = [x for x in entry.keys() if x not in self.schema['properties'].keys()]
                     if schema_keys and entry_keys:
@@ -48,6 +47,8 @@ class RatingsStream(AppFiguresBase):
                             entry[schema_item] = entries[j]
                         for key in entry_keys:
                             del(entry[key])
+
+                    entry = strings_to_floats(entry)
 
                     singer.write_message(singer.RecordMessage(
                         stream=self.STREAM_NAME,
