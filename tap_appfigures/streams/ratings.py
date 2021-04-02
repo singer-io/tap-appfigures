@@ -20,8 +20,8 @@ class RatingsStream(AppFiguresBase):
     def do_sync(self):
         """
         Main sync functionality
-        Most of the streams use this
-        A few of the streams work differently and override this method
+        Allows for differences in schemas between catalog and the actual received data to unravel lists
+        This permits the user to get more granular ratings info (e.g. number of reviews for each rating)
         """
         start_date = str_to_date(self.bookmark_date).strftime('%Y-%m-%d')
 
