@@ -76,6 +76,31 @@
                 "null",
                 "number"
             ]
+        },
+        "product_id": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "iso": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "country": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
         }
     }
 }

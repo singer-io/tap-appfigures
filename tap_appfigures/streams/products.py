@@ -14,6 +14,7 @@ class ProductsStream(AppFiguresBase):
 
         product_response = self.client.make_request("/products/mine")
         product_ids = []
+
         with singer.metrics.Counter('record_count', {'endpoint': 'products'}) as counter:
 
             for product in product_response.json().values():

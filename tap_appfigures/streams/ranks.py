@@ -13,7 +13,7 @@ class RanksStream(AppFiguresBase):
     def do_sync(self):
         start_date = str_to_date(self.bookmark_date)
         new_bookmark_date = start_date
-        product_ids = ';'.join(str(id) for id in self.product_ids)
+        product_ids = ','.join(str(id) for id in self.product_ids)
 
         while start_date.date() <= date.today():
             end_date = start_date + timedelta(days=28)

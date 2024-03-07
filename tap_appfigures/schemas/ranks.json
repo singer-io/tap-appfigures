@@ -23,16 +23,16 @@
                 "integer"
             ]
         },
-        "position": {
+        "positions": {
             "type": [
                 "null",
-                "integer"
+                "array"
             ]
         },
-        "delta": {
+        "deltas": {
             "type": [
                 "null",
-                "integer"
+                "array"
             ]
         }
     }

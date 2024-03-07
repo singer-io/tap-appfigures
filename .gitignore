@@ -3,5 +3,9 @@ catalog.json
 state.json
 .env
 dist/
+.idea/
 *.egg-info/
+build/
 __pycache__
+*.out
+.python-version
