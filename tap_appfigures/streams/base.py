@@ -5,6 +5,7 @@ import inspect
 import os
 
 import singer
+import datetime
 
 from tap_appfigures.utils import str_to_date, strings_to_floats, RequestError
 
@@ -28,6 +29,7 @@ class AppFiguresBase:
     URI = ''
     KEY_PROPERTIES = []
     RESPONSE_LEVELS = 2
+    ENABLED = True
 
     def __init__(self, client, state, catalog):
         self.schema = None
@@ -35,7 +37,9 @@ class AppFiguresBase:
         if catalog:
             stream_details = stream_details_from_catalog(catalog, self.STREAM_NAME)
             if stream_details:
-                self.schema = stream_details.schema.to_dict()['properties']
+                if not stream_details.metadata['selected']:
+                    self.ENABLED = False
+                self.schema = stream_details.schema.to_dict()
                 self.key_properties = stream_details.key_properties
 
         if not self.schema:
@@ -64,9 +68,10 @@ class AppFiguresBase:
         These steps are the same for all streams
         Differences between streams are implemented by overriding .do_sync() method
         """
-        singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
-        self.do_sync()
-        singer.write_state(self.state)
+        if self.ENABLED:
+            singer.write_schema(self.STREAM_NAME, self.schema, self.key_properties)
+            self.do_sync()
+            singer.write_state(self.state)
 
     @staticmethod
     def traverse_nested_dicts(dict_, levels):
@@ -92,24 +97,30 @@ class AppFiguresBase:
         """
         start_date = str_to_date(self.bookmark_date).strftime('%Y-%m-%d')
 
-        try:
-            response = self.client.make_request(self.URI.format(start_date))
-        except RequestError:
-            return
+        while str_to_date(start_date).date() < datetime.date.today():
+            end_date = min(str_to_date(start_date).date() + datetime.timedelta(days=28),
+                           datetime.date.today() - datetime.timedelta(days=1))
 
-        new_bookmark_date = self.bookmark_date
+            try:
+                response = self.client.make_request(self.URI.format(start_date, end_date.strftime('%Y-%m-%d')))
+            except RequestError:
+                return
 
-        with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
-            for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
-                new_bookmark_date = max(new_bookmark_date, entry['date'])
-                entry = strings_to_floats(entry)
-                singer.write_message(singer.RecordMessage(
-                    stream=self.STREAM_NAME,
-                    record=entry,
-                ))
-            counter.increment()
+            new_bookmark_date = self.bookmark_date
+            with singer.metrics.Counter('record_count', {'endpoint': self.STREAM_NAME}) as counter:
+                for entry in self.traverse_nested_dicts(response.json(), self.RESPONSE_LEVELS):
+                    new_bookmark_date = max(new_bookmark_date, entry['date'])
+                    entry = strings_to_floats(entry)
+                    singer.write_message(singer.RecordMessage(
+                        stream=self.STREAM_NAME,
+                        record=entry,
+                    ))
+                counter.increment()
 
-        self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
+            self.state = singer.write_bookmark(self.state, self.STREAM_NAME, 'last_record', new_bookmark_date)
+            if end_date == datetime.date.today() - datetime.timedelta(days=1):
+                break
+            start_date = end_date.strftime('%Y-%m-%d')
 
     def get_class_path(self):
         """
