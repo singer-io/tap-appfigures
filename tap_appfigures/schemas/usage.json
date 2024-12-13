@@ -46,6 +46,30 @@
                 "integer"
             ]
         },
+        "app_store_views": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "unique_app_store_views": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "impressions": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "unique_impressions": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
         "screen_views": {
             "type": [
                 "null",

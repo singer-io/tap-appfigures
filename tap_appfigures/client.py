@@ -21,9 +21,7 @@ class AppFiguresClient:
     BASE_URI = "https://api.appfigures.com/v2/"
 
     def __init__(self, config):
-        self.api_key = config.get('api_key')
-        self.password = config.get('password')
-        self.username = config.get('username')
+        self.pat = config.get('pat')
         self.start_date = config.get('start_date')
 
     def make_request(self, uri):
@@ -32,12 +30,10 @@ class AppFiguresClient:
         and handle any errors
         """
         LOGGER.info("Making get request to {}".format(uri))
-        headers = {"X-Client-Key": self.api_key}
-        auth = (self.username, self.password)
+        headers = {"Authorization": f'Bearer {self.pat}'}
         try:
             response = requests.get(
                 self.BASE_URI + uri.lstrip("/"),
-                auth=auth,
                 headers=headers
             )
         except Exception as e:

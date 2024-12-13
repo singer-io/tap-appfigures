@@ -21,7 +21,7 @@ def main():
     Main function - process args, build runner, execute request
     """
     args = singer.utils.parse_args(
-        required_config_keys=['api_key', 'username', 'password', 'start_date']
+        required_config_keys=['pat', 'start_date']
     )
 
     runner = AppFiguresRunner(

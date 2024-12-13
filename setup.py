@@ -9,8 +9,8 @@ setup(name='tap-appfigures',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       py_modules=['tap_appfigures'],
       install_requires=[
-          'singer-python==5.5.1',
-          'requests==2.20.1',
+          'singer-python==5.10.0',
+          'requests==2.25.1',
       ],
       entry_points='''
           [console_scripts]
