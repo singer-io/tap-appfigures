@@ -3,14 +3,14 @@
 from setuptools import setup, find_packages
 
 setup(name='tap-appfigures',
-      version='0.0.1',
+      version='0.0.2',
       description='Singer.io tap for extracting data from the AppFigures API',
       author='coen@compassmentis.com for Meow Wolf',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       py_modules=['tap_appfigures'],
       install_requires=[
-          'singer-python==5.5.1',
-          'requests==2.20.1',
+          'singer-python==6.8.0',
+          'requests==2.34.2',
       ],
       entry_points='''
           [console_scripts]
